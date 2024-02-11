@@ -1,4 +1,4 @@
-﻿<Window x:Class="WPFChromiumBrowser.MainWindow"
+﻿<Window x:Name="webBrowser" x:Class="WPFChromiumBrowser.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,8 +6,16 @@
         xmlns:local="clr-namespace:WPFChromiumBrowser"
         xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="720" Width="1024">
+        Title="WebBrowser" Height="720" Width="1024">
     <Grid>
-        <cef:ChromiumWebBrowser x:Name="Browser_Test" Address="https://www.google.com" />
+        <DockPanel>
+            <DockPanel LastChildFill="True" DockPanel.Dock="Top">
+                <Button Content="&lt;" Name="buttonBack" Click="buttonBack_Click" Height="30" Width="30" VerticalAlignment="Top"></Button>
+                <Button Content="&gt;" Name="buttonForward" Click="buttonForward_Click" Height="30" Width="30" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
+                <Button Content="Go" Name="buttonGoTo" Click="buttonGoTo_Click" Height="30" Width="30" HorizontalContentAlignment="Center" SnapsToDevicePixels="True" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
+                <TextBox Name="boxSearch" Height="30" VerticalAlignment="Top"/>
+            </DockPanel>
+        </DockPanel>
+        <cef:ChromiumWebBrowser x:Name="Browser_Test" Address="https://www.google.com" FrameLoadEnd="ChromiumWebBrowser_OnFrameLoadEnd" Margin="0,31,0,0"/>
     </Grid>
 </Window>
