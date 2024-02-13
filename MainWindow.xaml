@@ -1,4 +1,4 @@
-﻿<Window x:Name="webBrowser" x:Class="WPFChromiumBrowser.MainWindow"
+﻿<Window x:Class="WPFChromiumBrowser.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,15 +7,31 @@
         xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         mc:Ignorable="d"
         Title="WebBrowser" Height="720" Width="1024">
-    <Grid>
-        <DockPanel>
-            <DockPanel LastChildFill="True" DockPanel.Dock="Top">
-                <Button Content="&lt;" Name="buttonBack" Click="buttonBack_Click" Height="30" Width="30" VerticalAlignment="Top"></Button>
-                <Button Content="&gt;" Name="buttonForward" Click="buttonForward_Click" Height="30" Width="30" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
-                <Button Content="Go" Name="buttonGoTo" Click="buttonGoTo_Click" Height="30" Width="30" HorizontalContentAlignment="Center" SnapsToDevicePixels="True" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
-                <TextBox Name="boxSearch" Height="30" VerticalAlignment="Top"/>
-            </DockPanel>
-        </DockPanel>
-        <cef:ChromiumWebBrowser x:Name="Browser_Test" Address="https://www.google.com" FrameLoadEnd="ChromiumWebBrowser_OnFrameLoadEnd" Margin="0,31,0,0"/>
-    </Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+
+		<DockPanel>
+			<Button Content="&lt;" Name="buttonBack" Click="buttonBack_Click" Height="30" Width="30" VerticalAlignment="Top"/>
+			<Button Content="+" Name="newTabButton" Click="newTabButton_Click" Height="30" Width="30" VerticalAlignment="Top"/>
+			<Button Content="&gt;" Name="buttonForward" Click="buttonForward_Click" Height="30" Width="30" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
+			<Button Content="Refresh" Name="buttonRefresh" Click="buttonRefresh_Click" Height="30" Width="60" VerticalAlignment="Top"/>
+			<Button Content="Home" Name="buttonHome" Click="buttonHome_Click" Height="30" Width="60" VerticalAlignment="Top"/>
+			<Button Content="Go" Name="buttonGoTo" Click="buttonGoTo_Click" Height="30" Width="30" HorizontalContentAlignment="Center" SnapsToDevicePixels="True" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
+			<TextBox Name="boxSearch" Height="30" VerticalAlignment="Top" KeyDown="boxSearch_KeyDown"/>
+		</DockPanel>
+
+		<TabControl x:Name="tabControl" Grid.Row="1" TabStripPlacement="Top">
+			<!-- Initial tab -->
+			<TabItem Header="Google">
+				<Grid>
+					<DockPanel>
+						<cef:ChromiumWebBrowser x:Name="Browser_Test" Address="https://www.google.com" FrameLoadEnd="ChromiumWebBrowser_OnFrameLoadEnd" Margin="0,0,0,0"/>
+					</DockPanel>
+				</Grid>
+			</TabItem>
+		</TabControl>
+	</Grid>
 </Window>
