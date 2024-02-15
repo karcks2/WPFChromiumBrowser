@@ -45,7 +45,7 @@ namespace WPFChromiumBrowser
         {
             if (Browser_Test.CanGoForward)
             {
-                chrome.Forward();
+                Browser_Test.Forward();
             }
         }
 
@@ -62,6 +62,14 @@ namespace WPFChromiumBrowser
             if (!string.IsNullOrWhiteSpace(boxSearch.Text))
             {
                 Browser_Test.Address = boxSearch.Text;
+            }
+        }
+
+        private void buttonRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            if (Browser_Test != null)
+            {
+                Browser_Test.Reload();
             }
         }
 
