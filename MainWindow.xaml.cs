@@ -3,6 +3,7 @@ using CefSharp.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,6 +29,7 @@ namespace WPFChromiumBrowser
         public MainWindow()
         {
             InitializeComponent();
+            AddTab("https://www.google.com");
         }
 
         private void ChromiumWebBrowser_OnFrameLoadEnd(object sender, FrameLoadEndEventArgs e)
@@ -43,7 +45,7 @@ namespace WPFChromiumBrowser
         {
             if (Browser_Test.CanGoForward)
             {
-                Browser_Test.Forward();
+                chrome.Forward();
             }
         }
 
@@ -61,6 +63,32 @@ namespace WPFChromiumBrowser
             {
                 Browser_Test.Address = boxSearch.Text;
             }
+        }
+
+        private void buttonNewTab_Click(object sender, RoutedEventArgs e)
+        {
+            AddTab("https://www.google.com");
+        }
+
+        private void AddTab(string url)
+        {
+            var tabItem = new TabItem();
+            var webBrowser = new ChromiumWebBrowser();
+
+            tabItem.Header = "NewTab";
+            tabItem.Content = webBrowser;
+            tabControl.Items.Add(tabItem);
+
+            webBrowser.Address = url;
+            webBrowser.FrameLoadEnd += ChromiumWebBrowser_OnFrameLoadEnd;
+            Browser_Test = webBrowser;
+        }
+
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedTab = tabControl.SelectedItem as TabItem;
+            var selectedBrowser = selectedTab?.Content as ChromiumWebBrowser;
+            Browser_Test = selectedBrowser;
         }
     }
 }

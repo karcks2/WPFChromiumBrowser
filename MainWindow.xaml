@@ -8,14 +8,18 @@
         mc:Ignorable="d"
         Title="WebBrowser" Height="720" Width="1024">
     <Grid>
-        <DockPanel>
-            <DockPanel LastChildFill="True" DockPanel.Dock="Top">
-                <Button Content="&lt;" Name="buttonBack" Click="buttonBack_Click" Height="30" Width="30" VerticalAlignment="Top"></Button>
-                <Button Content="&gt;" Name="buttonForward" Click="buttonForward_Click" Height="30" Width="30" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
-                <Button Content="Go" Name="buttonGoTo" Click="buttonGoTo_Click" Height="30" Width="30" HorizontalContentAlignment="Center" SnapsToDevicePixels="True" VerticalContentAlignment="Center" VerticalAlignment="Top"/>
-                <TextBox Name="boxSearch" Height="30" VerticalAlignment="Top"/>
-            </DockPanel>
-        </DockPanel>
-        <cef:ChromiumWebBrowser x:Name="Browser_Test" Address="https://www.google.com" FrameLoadEnd="ChromiumWebBrowser_OnFrameLoadEnd" Margin="0,31,0,0"/>
+        <cef:ChromiumWebBrowser x:Name="Browser_Test" FrameLoadEnd="ChromiumWebBrowser_OnFrameLoadEnd"/>
+        <Grid Margin="0,0,0,670">
+            <Button Content="&lt;" Name="buttonBack" Click="buttonBack_Click" Height="30" Width="30" VerticalAlignment="Top" RenderTransformOrigin="0,0" HorizontalAlignment="Left" Margin="10,2,0,0"/>
+            <Button Content="&gt;" Name="buttonForward" Click="buttonForward_Click" Height="30" Width="30" VerticalContentAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0,0" HorizontalAlignment="Left" Margin="40,2,0,0"/>
+            <Button Content="Go" Name="buttonGoTo" Click="buttonGoTo_Click" Height="30" Width="30" VerticalContentAlignment="Center" VerticalAlignment="Top" RenderTransformOrigin="0,0" Margin="75,2,0,0" HorizontalContentAlignment="Center" HorizontalAlignment="Left"/>
+            <TextBox Name="boxSearch" Height="30" RenderTransformOrigin="0.5,0" VerticalAlignment="Top" Margin="110,2,75,0"/>
+            <Button Content="New Tab" Name="buttonNewTab" Click="buttonNewTab_Click" Height="30" Width="55" HorizontalAlignment="Right" VerticalAlignment="Top" RenderTransformOrigin="1,0" Margin="0,2,10,0"/>
+        </Grid>
+        <TabControl x:Name="tabControl" Margin="0,40,0,0">
+
+        </TabControl>
     </Grid>
 </Window>
+
+
