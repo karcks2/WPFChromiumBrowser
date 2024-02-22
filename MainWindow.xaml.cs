@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace WPFChromiumBrowser
 {
@@ -13,6 +14,7 @@ namespace WPFChromiumBrowser
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
 
             // Attach the SelectionChanged event handler to the TabControl
             tabControl.SelectionChanged += tabControl_SelectionChanged;
@@ -44,7 +46,7 @@ namespace WPFChromiumBrowser
 
         private void buttonHome_Click(object sender, RoutedEventArgs e)
         {
-            NavigateSelectedTab("https://www.google.com");
+            NavigateSelectedTab("https://search.brave.com/");
         }
 
         private void buttonRefresh_Click(object sender, RoutedEventArgs e)
@@ -76,8 +78,8 @@ namespace WPFChromiumBrowser
                 else
                 {
                     // If it's not a valid URL, perform a Google search
-                    string googleSearchUrl = "https://www.google.com/search?q=" + Uri.EscapeDataString(searchQuery);
-                    NavigateSelectedTab(googleSearchUrl);
+                    string braveSearchUrl = "https://search.brave.com/search?q=" + Uri.EscapeDataString(searchQuery);
+                    NavigateSelectedTab(braveSearchUrl);
                 }
             }
         }
@@ -91,9 +93,12 @@ namespace WPFChromiumBrowser
         {
             TabItem newTab = new TabItem();
             newTab.Header = "New Tab";
+            newTab.Background = new SolidColorBrush(Color.FromRgb(32, 32, 39));
+            newTab.BorderBrush = new SolidColorBrush(Color.FromRgb(32, 32, 39));
+            newTab.Foreground = Brushes.White;
 
             ChromiumWebBrowser newBrowser = new ChromiumWebBrowser();
-            newBrowser.Address = "https://www.google.com"; // Set the default URL for new tabs
+            newBrowser.Address = "https://search.brave.com/"; // Set the default URL for new tabs
             newBrowser.FrameLoadEnd += ChromiumWebBrowser_OnFrameLoadEnd;
 
             newTab.Content = new Grid
@@ -148,7 +153,7 @@ namespace WPFChromiumBrowser
                         if (dockPanel.Children.Count > 0 && dockPanel.Children[0] is ChromiumWebBrowser selectedBrowser)
                         {
                             // Display only the base URL in the search bar for the selected tab
-                            string baseUrl = "https://www.google.com";
+                            string baseUrl = "https://search.brave.com/";
                             string fullLink = selectedBrowser.Address;
 
                             if (fullLink.StartsWith(baseUrl, StringComparison.OrdinalIgnoreCase))
