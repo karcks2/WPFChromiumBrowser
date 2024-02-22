@@ -84,5 +84,14 @@ namespace WPFChromiumBrowser
             var selectedBrowser = selectedTab?.Content as ChromiumWebBrowser;
             Browser_Test = selectedBrowser;
         }
+
+        private void buttonCloseTab_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedTab = tabControl.SelectedItem as TabItem;
+            if (selectedTab != null)
+            {
+                tabControl.Items.Remove(selectedTab);
+            }
+        }
     }
 }
