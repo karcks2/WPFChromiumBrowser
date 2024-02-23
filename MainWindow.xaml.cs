@@ -24,7 +24,6 @@ namespace WPFChromiumBrowser
         {
             Dispatcher.BeginInvoke((Action)(() =>
             {
-                UpdateNavigationButtons();
                 UpdateSearchBox();
             }));
         }
@@ -74,10 +73,11 @@ namespace WPFChromiumBrowser
                 {
                     // If it's a valid URL, navigate to it directly
                     NavigateSelectedTab(searchQuery);
+                    
                 }
                 else
                 {
-                    // If it's not a valid URL, perform a Google search
+                    // If it's not a valid URL, perform a Brave search
                     string braveSearchUrl = "https://search.brave.com/search?q=" + Uri.EscapeDataString(searchQuery);
                     NavigateSelectedTab(braveSearchUrl);
                 }
@@ -92,7 +92,7 @@ namespace WPFChromiumBrowser
         private void AddNewTab()
         {
             TabItem newTab = new TabItem();
-            newTab.Header = "New Tab";
+            newTab.Header = "Brave Tab";
             newTab.Background = new SolidColorBrush(Color.FromRgb(32, 32, 39));
             newTab.BorderBrush = new SolidColorBrush(Color.FromRgb(32, 32, 39));
             newTab.Foreground = Brushes.White;
@@ -110,6 +110,7 @@ namespace WPFChromiumBrowser
 
             // Select the newly added tab
             tabControl.SelectedItem = newTab;
+            
 
             // Clear the search bar text for the new tab
             boxSearch.Text = "";
@@ -117,29 +118,7 @@ namespace WPFChromiumBrowser
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateNavigationButtons();
             UpdateSearchBox();
-        }
-
-        private void UpdateNavigationButtons()
-        {
-            if (tabControl.SelectedItem is TabItem selectedTab)
-            {
-                if (selectedTab.Content is Grid grid)
-                {
-                    if (grid.Children.Count > 0 && grid.Children[0] is DockPanel dockPanel)
-                    {
-                        if (dockPanel.Children.Count > 0 && dockPanel.Children[0] is ChromiumWebBrowser selectedBrowser)
-                        {
-                            Dispatcher.BeginInvoke((Action)(() =>
-                            {
-                                buttonForward.IsEnabled = selectedBrowser.CanGoForward;
-                                buttonBack.IsEnabled = selectedBrowser.CanGoBack;
-                            }));
-                        }
-                    }
-                }
-            }
         }
 
         private void UpdateSearchBox()
@@ -259,6 +238,18 @@ namespace WPFChromiumBrowser
                         }
                     }
                 }
+            }
+        }
+
+        private void buttonCloseTab_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem selectedTab = tabControl.SelectedItem as TabItem;
+            selectedTab.Background = new SolidColorBrush(Color.FromRgb(32, 32, 39));
+            selectedTab.BorderBrush = new SolidColorBrush(Color.FromRgb(32, 32, 39));
+            selectedTab.Foreground = Brushes.White;
+            if (selectedTab != null)
+            {
+                tabControl.Items.Remove(selectedTab);
             }
         }
     }

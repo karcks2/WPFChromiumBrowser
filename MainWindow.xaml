@@ -6,32 +6,37 @@
         xmlns:local="clr-namespace:WPFChromiumBrowser"
         xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
         mc:Ignorable="d"
+        WindowStyle="None"
+        ResizeMode="NoResize"
         Title="WebBrowser" Height="720" Width="1024">
-	<Grid Background="#FF1F2027">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
+ 
+    <Grid Background="#FF1F2027">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-		<DockPanel>
-			<Button Content="◀" Name="buttonBack" Click="buttonBack_Click" Height="32" Width="32" VerticalAlignment="Top" Foreground="White" Background="#FF252730" BorderBrush="#FF252730"/>
-			<Button Content="➕" Name="newTabButton" Click="newTabButton_Click" Height="32" Width="32" VerticalAlignment="Top" Foreground="White" BorderBrush="#FF252730" Background="#FF252730"/>
-			<Button Content="▶" Name="buttonForward" Click="buttonForward_Click" Height="32" Width="32" VerticalContentAlignment="Center" VerticalAlignment="Top" Foreground="White" Background="#FF252730" BorderBrush="#FF252730"/>
-			<Button Content="🔃" Name="buttonRefresh" Click="buttonRefresh_Click" Height="32" Width="32" VerticalAlignment="Top" Foreground="White" BorderBrush="#FF252730" Background="#FF252730"/>
-			<Button Content="🏠" Name="buttonHome" Click="buttonHome_Click" Height="32" Width="32" VerticalAlignment="Top" Foreground="White" Background="#FF252730" BorderBrush="#FF252730"/>
-			<Button Content="🔍" Name="buttonGoTo" Click="buttonGoTo_Click" Height="32" Width="32" HorizontalContentAlignment="Center" SnapsToDevicePixels="True" VerticalContentAlignment="Center" VerticalAlignment="Top" Foreground="White" BorderBrush="#FF252730" Background="#FF252730"/>
-			<TextBox Name="boxSearch" Height="30" VerticalAlignment="Top" KeyDown="boxSearch_KeyDown" Foreground="White" Background="#FF252730" BorderBrush="#FF252730" FontSize="16"/>
-		</DockPanel>
+        <DockPanel VerticalAlignment="Top" HorizontalAlignment="Center">
+            <Button Content="◀" Name="buttonBack" Click="buttonBack_Click" Height="50" Width="50" VerticalAlignment="Center" Foreground="White" Background="#FF252730" BorderBrush="#FF252730" HorizontalAlignment="Center"/>
+            <Button Content="➕" Name="newTabButton" Click="newTabButton_Click" Height="50" Width="50" VerticalAlignment="Center" Foreground="White" BorderBrush="#FF252730" Background="#FF252730" HorizontalAlignment="Center"/>
+            <Button Content="▶" Name="buttonForward" Click="buttonForward_Click" Height="50" Width="50" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="White" Background="#FF252730" BorderBrush="#FF252730" HorizontalAlignment="Center"/>
+            <Button Content="↻" Name="buttonRefresh" Click="buttonRefresh_Click" Height="50" Width="50" VerticalAlignment="Center" Foreground="White" BorderBrush="#FF252730" Background="#FF252730" HorizontalAlignment="Center" FontWeight="Bold" FontSize="16"/>
+            <Button Content="⌂" Name="buttonHome" Click="buttonHome_Click" Height="50" Width="50" VerticalAlignment="Center" Foreground="White" Background="#FF252730" BorderBrush="#FF252730" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+            <Button Content="📖" Name="buttonHistory" Click="buttonHome_Click" Height="50" Width="50" VerticalAlignment="Center" Foreground="White" Background="#FF252730" BorderBrush="#FF252730" HorizontalAlignment="Center" FontSize="16" FontWeight="Bold"/>
+            <Button Content="🔍" Name="buttonGoTo" Click="buttonGoTo_Click" Height="50" Width="50" HorizontalContentAlignment="Center" SnapsToDevicePixels="True" VerticalContentAlignment="Center" VerticalAlignment="Center" Foreground="White" BorderBrush="#FF252730" Background="#FF252730" Margin="-1,0,0,0" HorizontalAlignment="Right"/>
+            <Button Content="X" Name="buttonCloseTab" Click="buttonCloseTab_Click" Height="50" Width="50" RenderTransformOrigin="1,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ClipToBounds="True" UseLayoutRounding="True" Background="#FF252730" BorderBrush="#FF252730" Foreground="White" Margin="-1,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center" FontWeight="Bold"/>
+            <TextBox Name="boxSearch" Height="50" KeyDown="boxSearch_KeyDown" Foreground="White" Background="#FF252730" BorderBrush="#FF252730" FontSize="18" Width="738" Margin="0,0,80,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Bahnschrift Light" FontWeight="Bold" />
+        </DockPanel>
 
-		<TabControl x:Name="tabControl" Grid.Row="1" TabStripPlacement="Top" BorderBrush="{x:Null}" Background="#FF1F2027" Margin="0,0,0,-1">
-			<!-- Initial tab -->
-			<TabItem Header="Brave Tab" Background="#FF1F2027" Foreground="White" BorderBrush="{x:Null}">
-				<Grid>
-					<DockPanel>
-						<cef:ChromiumWebBrowser x:Name="Browser_Test" Address="https://search.brave.com/" FrameLoadEnd="ChromiumWebBrowser_OnFrameLoadEnd" Margin="0,0,0,0"/>
-					</DockPanel>
-				</Grid>
-			</TabItem>
-		</TabControl>
-	</Grid>
+        <TabControl x:Name="tabControl" Grid.Row="1" TabStripPlacement="Top" BorderBrush="{x:Null}" Background="#FF1F2027" Margin="0,0,0,-1">
+            <!-- Initial tab -->
+            <TabItem Header="Brave Tab" Background="#FF1F2027" Foreground="White" BorderBrush="{x:Null}">
+                <Grid>
+                    <DockPanel>
+                        <cef:ChromiumWebBrowser x:Name="Browser_Test" Address="https://search.brave.com/" FrameLoadEnd="ChromiumWebBrowser_OnFrameLoadEnd" Margin="0,0,0,0"/>
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>
