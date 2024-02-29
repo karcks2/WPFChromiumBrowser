@@ -5,7 +5,7 @@ Welcome to our WPF Browser project, Peckd!
 
 # This project was developed by:
 
-karcks2 (https://github.com/karcks2)
-ElvisG (https://github.com/ElvisGrigorjevs)
-Petriks (https://github.com/MarisBalc)
-Diego Dearest (https://github.com/DiegoDearest)
+- karcks2 (https://github.com/karcks2)
+- ElvisG (https://github.com/ElvisGrigorjevs)
+- Petriks (https://github.com/MarisBalc)
+- Diego Dearest (https://github.com/DiegoDearest)
