@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace WPFChromiumBrowser
 {
@@ -13,6 +14,7 @@ namespace WPFChromiumBrowser
         public MainWindow()
         {
             InitializeComponent();
+            this.WindowState = WindowState.Maximized;
 
             // Attach the SelectionChanged event handler to the TabControl
             tabControl.SelectionChanged += tabControl_SelectionChanged;
@@ -22,7 +24,6 @@ namespace WPFChromiumBrowser
         {
             Dispatcher.BeginInvoke((Action)(() =>
             {
-                UpdateNavigationButtons();
                 UpdateSearchBox();
             }));
         }
@@ -44,7 +45,7 @@ namespace WPFChromiumBrowser
 
         private void buttonHome_Click(object sender, RoutedEventArgs e)
         {
-            NavigateSelectedTab("https://www.google.com");
+            NavigateSelectedTab("https://search.google.com/");
         }
 
         private void buttonRefresh_Click(object sender, RoutedEventArgs e)
@@ -72,11 +73,12 @@ namespace WPFChromiumBrowser
                 {
                     // If it's a valid URL, navigate to it directly
                     NavigateSelectedTab(searchQuery);
+                    
                 }
                 else
                 {
-                    // If it's not a valid URL, perform a Google search
-                    string googleSearchUrl = "https://www.google.com/search?q=" + Uri.EscapeDataString(searchQuery);
+                    // If it's not a valid URL, perform a google search
+                    string googleSearchUrl = "https://search.google.com/search?q=" + Uri.EscapeDataString(searchQuery);
                     NavigateSelectedTab(googleSearchUrl);
                 }
             }
@@ -90,10 +92,14 @@ namespace WPFChromiumBrowser
         private void AddNewTab()
         {
             TabItem newTab = new TabItem();
-            newTab.Header = "New Tab";
+            newTab.Header = "Google Tab";
+            newTab.Background = new SolidColorBrush(Color.FromRgb(247, 247, 247));
+            newTab.BorderBrush = new SolidColorBrush(Color.FromRgb(247, 247, 247));
+            newTab.FontFamily = new FontFamily("Cascadia Mono");
+            newTab.Foreground = Brushes.Black;
 
             ChromiumWebBrowser newBrowser = new ChromiumWebBrowser();
-            newBrowser.Address = "https://www.google.com"; // Set the default URL for new tabs
+            newBrowser.Address = "https://search.Google.com/"; // Set the default URL for new tabs
             newBrowser.FrameLoadEnd += ChromiumWebBrowser_OnFrameLoadEnd;
 
             newTab.Content = new Grid
@@ -105,6 +111,7 @@ namespace WPFChromiumBrowser
 
             // Select the newly added tab
             tabControl.SelectedItem = newTab;
+            
 
             // Clear the search bar text for the new tab
             boxSearch.Text = "";
@@ -112,29 +119,7 @@ namespace WPFChromiumBrowser
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateNavigationButtons();
             UpdateSearchBox();
-        }
-
-        private void UpdateNavigationButtons()
-        {
-            if (tabControl.SelectedItem is TabItem selectedTab)
-            {
-                if (selectedTab.Content is Grid grid)
-                {
-                    if (grid.Children.Count > 0 && grid.Children[0] is DockPanel dockPanel)
-                    {
-                        if (dockPanel.Children.Count > 0 && dockPanel.Children[0] is ChromiumWebBrowser selectedBrowser)
-                        {
-                            Dispatcher.BeginInvoke((Action)(() =>
-                            {
-                                buttonForward.IsEnabled = selectedBrowser.CanGoForward;
-                                buttonBack.IsEnabled = selectedBrowser.CanGoBack;
-                            }));
-                        }
-                    }
-                }
-            }
         }
 
         private void UpdateSearchBox()
@@ -148,7 +133,7 @@ namespace WPFChromiumBrowser
                         if (dockPanel.Children.Count > 0 && dockPanel.Children[0] is ChromiumWebBrowser selectedBrowser)
                         {
                             // Display only the base URL in the search bar for the selected tab
-                            string baseUrl = "https://www.google.com";
+                            string baseUrl = "https://search.Google.com/";
                             string fullLink = selectedBrowser.Address;
 
                             if (fullLink.StartsWith(baseUrl, StringComparison.OrdinalIgnoreCase))
@@ -254,6 +239,18 @@ namespace WPFChromiumBrowser
                         }
                     }
                 }
+            }
+        }
+
+        private void buttonCloseTab_Click(object sender, RoutedEventArgs e)
+        {
+            TabItem selectedTab = tabControl.SelectedItem as TabItem;
+            selectedTab.Background = new SolidColorBrush(Color.FromRgb(32, 32, 39));
+            selectedTab.BorderBrush = new SolidColorBrush(Color.FromRgb(32, 32, 39));
+            selectedTab.Foreground = Brushes.White;
+            if (selectedTab != null)
+            {
+                tabControl.Items.Remove(selectedTab);
             }
         }
     }
